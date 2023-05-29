@@ -11,7 +11,7 @@ const {
 const testUser = require("../middleware/testUser");
 
 router.route("/").post(testUser, createJob).get(getAllJobs);
-router.route('/stats').get(showStats)
+router.route("/stats").get(showStats);
 router
   .route("/:id")
   .get(getJob)
@@ -19,4 +19,3 @@ router
   .patch(testUser, updateJob);
 
 module.exports = router;
- 
