@@ -1,7 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const authenticateUser = require("../middleware/authentication");
 const testUser = require("../middleware/testUser");
+
+const {
+  authenticateUser,
+  authorizePermissions,
+} = require("../middleware/authentication");
 
 const rateLimiter = require("express-rate-limit");
 
@@ -14,8 +18,9 @@ const apiLimiter = rateLimiter({
 });
 
 const { register, login, updateUser } = require("../controllers/auth");
+
 router.post("/register",apiLimiter, register);
 router.post("/login",apiLimiter, login);
-router.patch("/updateUser", authenticateUser, testUser, updateUser);
+router.patch("/updateUser", testUser, authenticateUser,  updateUser);
 
 module.exports = router;
